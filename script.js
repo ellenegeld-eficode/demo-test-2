@@ -150,6 +150,22 @@ function handleEquals() {
   updateDisplay();
 }
 
+function handlePi() {
+  if (currentValue === 'Error') {
+    currentValue = '0';
+  }
+
+  if (waitingForSecondValue) {
+    currentValue = String(Math.PI);
+    waitingForSecondValue = false;
+    updateDisplay();
+    return;
+  }
+
+  currentValue = String(Math.PI);
+  updateDisplay();
+}
+
 function handleDelete() {
   if (currentValue === 'Error') {
     resetCalculator();
@@ -179,6 +195,11 @@ function handleButtonClick(event) {
 
   if (action === 'decimal') {
     inputDecimal();
+    return;
+  }
+
+  if (action === 'pi') {
+    handlePi();
     return;
   }
 
@@ -220,6 +241,11 @@ function handleKeyboardInput(event) {
     return;
   }
 
+  if (key.toLowerCase() === 'p') {
+    handlePi();
+    return;
+  }
+
   if (key === 'Enter' || key === '=') {
     handleEquals();
     return;
@@ -246,6 +272,7 @@ if (typeof module !== 'undefined') {
   module.exports = {
     performCalculation,
     handleOperator,
+    handlePi,
     resetCalculator,
   };
 }
