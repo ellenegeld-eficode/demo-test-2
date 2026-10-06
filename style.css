@@ -94,10 +94,6 @@ body {
   color: #111111;
 }
 
-.btn.zero {
-  grid-column: span 2;
-}
-
 @media (max-width: 420px) {
   .calculator {
     padding: 14px;

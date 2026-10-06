@@ -150,6 +150,22 @@ function handleEquals() {
   updateDisplay();
 }
 
+function handlePi() {
+  if (currentValue === 'Error') {
+    currentValue = '0';
+  }
+
+  if (waitingForSecondValue) {
+    currentValue = String(Math.PI);
+    waitingForSecondValue = false;
+    updateDisplay();
+    return;
+  }
+
+  currentValue = String(Math.PI);
+  updateDisplay();
+}
+
 function handleDelete() {
   if (currentValue === 'Error') {
     resetCalculator();
@@ -182,6 +198,11 @@ function handleButtonClick(event) {
     return;
   }
 
+  if (action === 'pi') {
+    handlePi();
+    return;
+  }
+
   if (action === 'operator') {
     handleOperator(value);
     return;
@@ -203,6 +224,10 @@ function handleButtonClick(event) {
 }
 
 function handleKeyboardInput(event) {
+  if (event.ctrlKey || event.metaKey || event.altKey) {
+    return;
+  }
+
   const { key } = event;
 
   if (/^[0-9]$/.test(key)) {
@@ -217,6 +242,11 @@ function handleKeyboardInput(event) {
 
   if (['+', '-', '*', '/', '%'].includes(key)) {
     handleOperator(key);
+    return;
+  }
+
+  if (!event.ctrlKey && !event.metaKey && !event.altKey && key.toLowerCase() === 'p') {
+    handlePi();
     return;
   }
 
@@ -246,6 +276,7 @@ if (typeof module !== 'undefined') {
   module.exports = {
     performCalculation,
     handleOperator,
+    handlePi,
     resetCalculator,
   };
 }
