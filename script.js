@@ -245,7 +245,7 @@ function handleKeyboardInput(event) {
     return;
   }
 
-  if (key.toLowerCase() === 'p') {
+  if (!event.ctrlKey && !event.metaKey && !event.altKey && key.toLowerCase() === 'p') {
     handlePi();
     return;
   }
