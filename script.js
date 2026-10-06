@@ -224,6 +224,10 @@ function handleButtonClick(event) {
 }
 
 function handleKeyboardInput(event) {
+  if (event.ctrlKey || event.metaKey || event.altKey) {
+    return;
+  }
+
   const { key } = event;
 
   if (/^[0-9]$/.test(key)) {
